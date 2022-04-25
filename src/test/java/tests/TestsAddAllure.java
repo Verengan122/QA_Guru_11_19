@@ -87,8 +87,9 @@ public class TestsAddAllure {
 
     @Test
     void listTest() {
-
-        RestAssured.get("https://reqres.in/api/users?page=2")
+        given()
+                .filter(withCustomTemplates())
+                .get("https://reqres.in/api/users?page=2")
                 .then()
                 .log().status()
                 .log().body()
@@ -99,7 +100,9 @@ public class TestsAddAllure {
 
     @Test
     void notFoundTest() {
-        RestAssured.get("https://reqres.in/api/unknown/23")
+        given()
+                .filter(withCustomTemplates())
+                .get("https://reqres.in/api/unknown/23")
                 .then()
                 .log().status()
                 .log().body()
