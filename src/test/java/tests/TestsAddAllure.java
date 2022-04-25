@@ -112,6 +112,7 @@ public class TestsAddAllure {
         UserData userData = new UserData();
         userData.setEmail("RedCat12");
         given()
+                .filter(withCustomTemplates())
                 .formParam("email", userData.getEmail())
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .log().uri()
@@ -133,6 +134,7 @@ public class TestsAddAllure {
         UserData userData = new UserData();
         userData.setEmail("RedCat12@mail.ru");
         given()
+                .filter(withCustomTemplates())
                 .formParam("email", userData.getEmail())
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .log().uri()
