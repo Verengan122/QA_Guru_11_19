@@ -26,6 +26,7 @@ public class TestsAddAllure {
                 .contentType(JSON)
                 .log().uri()
                 .log().body()
+                .log().cookies()
                 .when()
                 .post("https://reqres.in/api/login")
                 .then()
@@ -86,63 +87,67 @@ public class TestsAddAllure {
 
     @Test
     void listTest() {
-GenerateDataLombok dataLombok = new GenerateDataLombok();
 
         RestAssured.get("https://reqres.in/api/users?page=2")
                 .then()
-                .statusCode(200);
-//                .body("total", is(12))
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .body("total", is(12));
 
-
-        assertThat(dataLombok.getTotal()).hasSize(12);
     }
 
     @Test
     void notFoundTest() {
         RestAssured.get("https://reqres.in/api/unknown/23")
                 .then()
+                .log().status()
+                .log().body()
                 .statusCode(404);
 
     }
 
     @Test
-    void SubscriptionWithInvalidMail() {
+    void subscriptionWithInvalidMail() {
         UserData userData = new UserData();
         userData.setEmail("RedCat12");
-        GenerateDataLombok dataLombok =
         given()
-                .body(userData)
-//                .formParam("email", "RedCat12")
+                .formParam("email", userData.getEmail())
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .log().uri()
                 .log().body()
+                .log().params()
                 .when()
                 .post("http://demowebshop.tricentis.com/subscribenewsletter")
                 .then()
                 .log().status()
                 .log().body()
                 .statusCode(200)
-//                .body("Result", Matchers.is("Enter valid email"))
-//                .body("Success", Matchers.is(false))
-                .extract().as(GenerateDataLombok.class);
-
-
-        assertThat(dataLombok.getResult()).isEqualTo("Enter valid email");
-//        assertThat(dataLombok.getSuccess()).isEqualTo(false);
+                .body("Result", Matchers.is("Enter valid email"))
+                .body("Success", Matchers.is(false));
 
     }
 
     @Test
-    void SubscriptionWithTrueMail() {
+    void subscriptionWithTrueMail() {
+        UserData userData = new UserData();
+        userData.setEmail("RedCat12@mail.ru");
         given()
-                .formParam("email", "RedCat12@mail.ru")
+                .formParam("email", userData.getEmail())
+                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                .log().uri()
+                .log().body()
+                .log().params()
                 .when()
                 .post("http://demowebshop.tricentis.com/subscribenewsletter")
                 .then()
-                .log().all()
+                .log().status()
+                .log().body()
                 .statusCode(200)
-                .body("Result", Matchers.is("Thank you for signing up! A verification email has been sent. We appreciate your interest."))
+                .body("Result", Matchers.is("Thank you for signing up!" +
+                        " A verification email has been sent. We appreciate your interest."))
                 .body("Success", Matchers.is(true));
+
     }
 }
 
