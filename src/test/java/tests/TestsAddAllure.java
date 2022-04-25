@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import models.lombok.GenerateDataLombok;
 import models.lombok.UserData;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
 public class TestsAddAllure {
+    @DisplayName("Успешный тест на наличие пользователя")
     @Test
     void succsessfulTest() {
         UserData userData = new UserData();
@@ -38,7 +40,7 @@ public class TestsAddAllure {
        assertThat(dataLombok.getToken()).isNotNull();
 
     }
-
+    @DisplayName("Неуспешный тест на наличие пользователя")
     @Test
     void unsuccsessfulTest() {
         UserData userData = new UserData();
@@ -61,7 +63,7 @@ public class TestsAddAllure {
         assertThat(dataLombok.getError()).isEqualTo("Missing password");
 
     }
-
+    @DisplayName("Создание пользователя")
     @Test
     void createTest() {
         UserData userData = new UserData();
@@ -84,7 +86,7 @@ public class TestsAddAllure {
         assertThat(userData.getJob()).isEqualTo("leader");
 
     }
-
+    @DisplayName("Наличие в Data 12 элементов")
     @Test
     void listTest() {
         given()
@@ -97,7 +99,7 @@ public class TestsAddAllure {
                 .body("total", is(12));
 
     }
-
+    @DisplayName("Ошибка 404")
     @Test
     void notFoundTest() {
         given()
@@ -109,7 +111,7 @@ public class TestsAddAllure {
                 .statusCode(404);
 
     }
-
+    @DisplayName("Попытка подписки с неверным Email")
     @Test
     void subscriptionWithInvalidMail() {
         UserData userData = new UserData();
@@ -131,7 +133,7 @@ public class TestsAddAllure {
                 .body("Success", Matchers.is(false));
 
     }
-
+    @DisplayName("Подписка с верным Email")
     @Test
     void subscriptionWithTrueMail() {
         UserData userData = new UserData();
