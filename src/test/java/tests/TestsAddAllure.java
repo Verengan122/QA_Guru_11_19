@@ -1,18 +1,17 @@
 package tests;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import io.restassured.RestAssured;
 import models.lombok.GenerateDataLombok;
 import models.lombok.UserData;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static listner.CustomAllureListener.withCustomTemplates;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static spec.Specs.*;
 
 public class TestsAddAllure {
     @DisplayName("Успешный тест на наличие пользователя")
@@ -22,47 +21,42 @@ public class TestsAddAllure {
         userData.setEmail("eve.holt@reqres.in");
         userData.setPassword("cityslicka");
         GenerateDataLombok dataLombok =
-        given()
-                .filter(withCustomTemplates())
-                .body(userData)
-                .contentType(JSON)
-                .log().uri()
-                .log().body()
-                .log().cookies()
-                .when()
-                .post("https://reqres.in/api/login")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .extract().as(GenerateDataLombok.class);
+                given()
+                        .spec(request)
+                        .body(userData)
+                        .when()
+                        .post("/api/login")
+                        .then()
+                        .log().status()
+                        .log().body()
+                        .spec(positiveSpec)
+                        .extract().as(GenerateDataLombok.class);
 
-       assertThat(dataLombok.getToken()).isNotNull();
+        assertThat(dataLombok.getToken()).isNotNull();
 
     }
+
     @DisplayName("Неуспешный тест на наличие пользователя")
     @Test
     void unsuccsessfulTest() {
         UserData userData = new UserData();
         userData.setEmail("sydney@fife");
         GenerateDataLombok dataLombok =
-        given()
-                .filter(withCustomTemplates())
-                .body(userData)
-                .contentType(JSON)
-                .log().uri()
-                .log().body()
-                .when()
-                .post("https://reqres.in/api/login")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(400)
-                .extract().as(GenerateDataLombok.class);
+                given()
+                        .spec(request)
+                        .body(userData)
+                        .when()
+                        .post("/api/login")
+                        .then()
+                        .log().status()
+                        .log().body()
+                        .spec(negativeSpec)
+                        .extract().as(GenerateDataLombok.class);
 
         assertThat(dataLombok.getError()).isEqualTo("Missing password");
 
     }
+
     @DisplayName("Создание пользователя")
     @Test
     void createTest() {
@@ -70,13 +64,10 @@ public class TestsAddAllure {
         userData.setName("morpheus");
         userData.setJob("leader");
         given()
-                .filter(withCustomTemplates())
+                .spec(request)
                 .body(userData)
-                .contentType(JSON)
-                .log().uri()
-                .log().body()
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/api/users")
                 .then()
                 .log().status()
                 .log().body()
@@ -86,31 +77,37 @@ public class TestsAddAllure {
         assertThat(userData.getJob()).isEqualTo("leader");
 
     }
+
     @DisplayName("Наличие в Data 12 элементов")
     @Test
     void listTest() {
-        given()
-                .filter(withCustomTemplates())
-                .get("https://reqres.in/api/users?page=2")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("total", is(12));
+        GenerateDataLombok dataLombok =
+                given()
+                        .spec(request)
+                        .get("/api/users?page=2")
+                        .then()
+                        .log().status()
+                        .log().body()
+                        .spec(positiveSpec)
+                        .extract().as(GenerateDataLombok.class);
+
+        assertThat(dataLombok.getTotal()).isEqualTo("12");
 
     }
+
     @DisplayName("Ошибка 404")
     @Test
     void notFoundTest() {
         given()
-                .filter(withCustomTemplates())
-                .get("https://reqres.in/api/unknown/23")
+                .spec(request)
+                .get("/api/unknown/23")
                 .then()
                 .log().status()
                 .log().body()
-                .statusCode(404);
+                .spec(notFoundSpec);
 
     }
+
     @DisplayName("Попытка подписки с неверным Email")
     @Test
     void subscriptionWithInvalidMail() {
@@ -133,6 +130,7 @@ public class TestsAddAllure {
                 .body("Success", Matchers.is(false));
 
     }
+
     @DisplayName("Подписка с верным Email")
     @Test
     void subscriptionWithTrueMail() {
@@ -154,6 +152,7 @@ public class TestsAddAllure {
                 .body("Result", Matchers.is("Thank you for signing up!" +
                         " A verification email has been sent. We appreciate your interest."))
                 .body("Success", Matchers.is(true));
+
 
     }
 }
