@@ -38,19 +38,19 @@
 ## :bar_chart: Сборка в Jenkins
 ## <a target="_blank" href="https://jenkins.autotests.cloud/job/AWEM_Tests_QA_Guru_11_Diploma/">Сборка в Jenkins</a>
 <p align="center">
-<img title="Jenkins Dashboard" src="images/screenshots/jenkins_pr.png">
+<img title="Jenkins Dashboard" src="images/screenshots/Jenkins.png">
 </p>
 
 
 ## :loudspeaker: Allure отчет
 - ### Главный экран отчета
 <p align="center">
-<img title="Allure Overview Dashboard" src="images/screenshots/allure-report.png">
+<img title="Allure Overview Dashboard" src="images/screenshots/AllureRep.png">
 </p>
 
 - ### :clipboard: Страница с проведенными тестами
 <p align="center">
-<img title="Allure Test Page" src="images/screenshots/pages_tests.png">
+<img title="Allure Test Page" src="images/screenshots/PageTests.png">
 </p>
 
 ## :robot: Отчет в Telegram
