@@ -1,0 +1,9 @@
+// curl -X POST \
+       -H 'Content-Type: application/json' \
+       -d '{"chat_id": "-1001769787193", "text": "This is a test from qa.guru"}' \
+        https://api.telegram.org/bot5116345587:AAFpOTfdh6wN-73tDOQ9CAh7dn403mhksH8/sendMessage
+        //456278538
+        curl -X POST \
+               -H 'Content-Type: application/json' \
+               -d '{"chat_id": "456278538", "text": "This is a test from qa.guru"}' \
+                https://api.telegram.org/bot5116345587:AAFpOTfdh6wN-73tDOQ9CAh7dn403mhksH8/sendMessage
