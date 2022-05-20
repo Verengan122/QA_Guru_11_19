@@ -17,6 +17,14 @@ public class Specs {
             .log().cookies()
             .contentType(ContentType.JSON);
 
+    public static RequestSpecification requestDemoWebShop = with()
+            .filter(withCustomTemplates())
+            .baseUri("http://demowebshop.tricentis.com")
+            .log().uri()
+            .log().body()
+            .log().params()
+            .contentType("application/x-www-form-urlencoded; charset=UTF-8");
+
     public static ResponseSpecification positiveSpec = new ResponseSpecBuilder()
             .expectStatusCode(200)
             .build();

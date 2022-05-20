@@ -1,6 +1,7 @@
 package tests;
 
 import models.lombok.GenerateDataLombok;
+import models.lombok.MorpheusData;
 import models.lombok.UserData;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
@@ -8,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
-import static listner.CustomAllureListener.withCustomTemplates;
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Specs.*;
 
@@ -63,6 +62,7 @@ public class TestsAddAllure {
         UserData userData = new UserData();
         userData.setName("morpheus");
         userData.setJob("leader");
+        MorpheusData morpheusData =
         given()
                 .spec(request)
                 .body(userData)
@@ -71,10 +71,11 @@ public class TestsAddAllure {
                 .then()
                 .log().status()
                 .log().body()
-                .statusCode(201);
+                .statusCode(201)
+                .extract().as(MorpheusData.class);
 
-        assertThat(userData.getName()).isEqualTo("morpheus");
-        assertThat(userData.getJob()).isEqualTo("leader");
+        assertThat(morpheusData.getName()).isEqualTo("morpheus");
+        assertThat(morpheusData.getJob()).isEqualTo("leader");
 
     }
 
@@ -114,18 +115,14 @@ public class TestsAddAllure {
         UserData userData = new UserData();
         userData.setEmail("RedCat12");
         given()
-                .filter(withCustomTemplates())
+                .spec(requestDemoWebShop)
                 .formParam("email", userData.getEmail())
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                .log().uri()
-                .log().body()
-                .log().params()
                 .when()
                 .post("http://demowebshop.tricentis.com/subscribenewsletter")
                 .then()
                 .log().status()
                 .log().body()
-                .statusCode(200)
+                .spec(positiveSpec)
                 .body("Result", Matchers.is("Enter valid email"))
                 .body("Success", Matchers.is(false));
 
@@ -137,18 +134,14 @@ public class TestsAddAllure {
         UserData userData = new UserData();
         userData.setEmail("RedCat12@mail.ru");
         given()
-                .filter(withCustomTemplates())
+                .spec(requestDemoWebShop)
                 .formParam("email", userData.getEmail())
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                .log().uri()
-                .log().body()
-                .log().params()
                 .when()
-                .post("http://demowebshop.tricentis.com/subscribenewsletter")
+                .post("/subscribenewsletter")
                 .then()
                 .log().status()
                 .log().body()
-                .statusCode(200)
+                .spec(positiveSpec)
                 .body("Result", Matchers.is("Thank you for signing up!" +
                         " A verification email has been sent. We appreciate your interest."))
                 .body("Success", Matchers.is(true));
