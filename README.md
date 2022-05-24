@@ -7,6 +7,7 @@
 - <a href="#arrow_forward-проведенные автотесты">Автотесты</a>
 - <a href="#bar_chart-сборка-в-Jenkins">Сборка в Jenkins</a>
 - <a href="#loudspeaker-allure-отчет">Allure отчет</a>
+- <a href="#ticket-Интеграция с Allure TestOps">Интеграция с Allure TestOps</a>
 - <a href="#robot-отчет-в-telegram">Отчет в Telegram</a>
 
 
