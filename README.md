@@ -53,6 +53,17 @@
 <img title="Allure Test Page" src="images/screenshots/PageTests.png">
 </p>
 
+## :ticket: Интеграция с Allure TestOps
+- ### Экран с результатами запуска тестов
+<p align="center">
+<img title="TestOps Launch Page" src="images/screenshots/AllureTestOps.png">
+</p>
+
+- ### Страница с тестами в TestOps
+<p align="center">
+<img title="TestOps tests page" src="images/screenshots/PagesTestsAlureTestOps.png">
+</p>
+
 ## :robot: Отчет в Telegram
 <p align="center">
 <img title="Telegram notification message" src="images/screenshots/telegram.png">
