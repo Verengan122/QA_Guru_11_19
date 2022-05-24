@@ -3,11 +3,11 @@
 
 ## :scroll: Структура:
 
-- <a href="#toolbox-технологии-и-инструменты">Стек</a>
-- <a href="#arrow_forward-проведенные автотесты">Автотесты</a>
-- <a href="#bar_chart-сборка-в-Jenkins">Сборка в Jenkins</a>
-- <a href="#loudspeaker-allure-отчет">Allure отчет</a>
-- <a href="#ticket-Интеграция с Allure TestOps">Интеграция с Allure TestOps</a>
+- <a href="#toolbox-Стек">Стек</a>
+- <a href="#arrow_forward-Автотесты">Автотесты</a>
+- <a href="#bar_chart-Сборка-в-Jenkins">Сборка в Jenkins</a>
+- <a href="#loudspeaker-Allure-отчет">Allure отчет</a>
+- <a href="#ticket-Интеграция-с-Allure-TestOps">Интеграция с Allure TestOps</a>
 - <a href="#robot-отчет-в-telegram">Отчет в Telegram</a>
 
 
@@ -19,7 +19,6 @@
 <img width="10%" title="JUnit5" src="images/logo/JUnit5.svg">
 <img width="10%" title="Selenide" src="images/logo/Selenide.svg">
 <img width="10%" title="Jenkins" src="images/logo/Jenkins.svg">
-
 <img width="10%" title="Allure Report" src="images/logo/Allure_Report.svg">
 <img width="10%" title="GitHub" src="images/logo/GitHub.svg">
 <img width="10%" title="Telegram" src="images/logo/Telegram.svg">
@@ -27,7 +26,7 @@
 </p>
 
 
-## :arrow_forward: Автотетсы
+## :arrow_forward: Автотесты
 - Проверка наличия пользователя на странице
 - Проверка на отсутсвие пользователя на странице
 - Создание пользователя на странцие
