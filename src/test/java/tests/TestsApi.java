@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Specs.*;
 
-public class TestsAddAllure {
+public class TestsApi {
     @DisplayName("Успешный тест на наличие пользователя")
     @Test
     void succsessfulTest() {
@@ -32,7 +32,6 @@ public class TestsAddAllure {
                         .extract().as(GenerateDataLombok.class);
 
         assertThat(dataLombok.getToken()).isNotNull();
-
     }
 
     @DisplayName("Неуспешный тест на наличие пользователя")
@@ -53,7 +52,6 @@ public class TestsAddAllure {
                         .extract().as(GenerateDataLombok.class);
 
         assertThat(dataLombok.getError()).isEqualTo("Missing password");
-
     }
 
     @DisplayName("Создание пользователя")
@@ -76,7 +74,6 @@ public class TestsAddAllure {
 
         assertThat(morpheusData.getName()).isEqualTo("morpheus");
         assertThat(morpheusData.getJob()).isEqualTo("leader");
-
     }
 
     @DisplayName("Наличие в Data 12 элементов")
@@ -93,7 +90,6 @@ public class TestsAddAllure {
                         .extract().as(GenerateDataLombok.class);
 
         assertThat(dataLombok.getTotal()).isEqualTo("12");
-
     }
 
     @DisplayName("Ошибка 404")
@@ -106,7 +102,6 @@ public class TestsAddAllure {
                 .log().status()
                 .log().body()
                 .spec(notFoundSpec);
-
     }
 
     @DisplayName("Попытка подписки с неверным Email")
@@ -125,7 +120,6 @@ public class TestsAddAllure {
                 .spec(positiveSpec)
                 .body("Result", Matchers.is("Enter valid email"))
                 .body("Success", Matchers.is(false));
-
     }
 
     @DisplayName("Подписка с верным Email")
@@ -145,8 +139,6 @@ public class TestsAddAllure {
                 .body("Result", Matchers.is("Thank you for signing up!" +
                         " A verification email has been sent. We appreciate your interest."))
                 .body("Success", Matchers.is(true));
-
-
     }
 }
 
