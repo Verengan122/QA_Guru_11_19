@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static spec.Specs.*;
 
-public class TestsApi {
+public class TestsReqresAndWS {
     @DisplayName("Успешный тест на наличие пользователя")
     @Test
     void succsessfulTest() {
